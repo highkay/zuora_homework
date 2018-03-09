@@ -67,7 +67,7 @@ public interface TopNPopularPathService {
 Build
 
 ```
-mvn build
+mvn install
 ```
 
 Run
