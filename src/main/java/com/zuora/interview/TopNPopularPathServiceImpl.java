@@ -22,13 +22,17 @@ public class TopNPopularPathServiceImpl implements TopNPopularPathService {
         paths = new LinkedList<>();
         StringBuilder sb = new StringBuilder();
         pagesByUser.entrySet().stream().map(Map.Entry::getValue).forEach(list -> {
-            for (int i = 0; i < list.size(); i++) {
-                sb.append(list.get(i));
-                if ((i % PATH_LENGTH == PATH_LENGTH - 1 && i > 0) || i == list.size() - 1) {
-                    paths.add(sb.toString());
-                    sb.setLength(0);
-                } else {
-                    sb.append("->");
+            int i, j, size;
+            size = list.size() - PATH_LENGTH;
+            for (i = 0; i < size; i++) {
+                for (j = 0; j < PATH_LENGTH; j++) {
+                    sb.append(list.get(i + j));
+                    if (j == PATH_LENGTH - 1) {
+                        paths.add(sb.toString());
+                        sb.setLength(0);
+                    } else {
+                        sb.append("->");
+                    }
                 }
             }
         });
